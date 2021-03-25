@@ -6,93 +6,26 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="css/main.css">
         <title>ToDo App</title>
-        <script src="http://vuejs.org/js/vue.js"></script>
+        <!--<script src="http://vuejs.org/js/vue.js"></script>-->
     </head>
     <body>
+      <div class="container">
         <div id="app">
             <h1 v-text="title"></h1>
             <ul v-for="list in lists" v-bind:key="list.id"> 
-              <!--<li>{{list.item}} </li>-->
               <li class="item" v-bind:class="[{ 'checked': list.completed }]">
                 <input class="checkbox-lg" type="checkbox" v-on:change="mark(list)" v-bind:checked="list.completed">
                 {{list.item}}
-                <!--<div class="text-right"><button class="btn btn-outline-danger" v-on:click="deleteItem(list)">delete</button></div>-->
                 <div class="text-right"><span><button @click.prevent="deleteItem(id)">Delete</button></span></div>
               </li>
             </ul>
 
             <input v-model="newItem" v-on:keyip.enter = 'addItem' />
             <span><button @click.prevent="addItem">Add</button></span>
-
+          </div>
         </div>
-        <script type='text/JavaScript'>
-
-          new Vue({
-            el: "#app",
-            data: {
-              title: 'ToDo List',
-              
-              lists: [
-                /*{ id:1, item: 'do homework', completed: false},
-                { id:2, item: 'do laundry', completed: false},
-                { id:3, item: 'empty trash', completed: false}*/
-              ],
-              //localStorage.setItem("lists", JSON.stringify(lists)),
-              newItem:'',
-            },
-            methods: {
-              addItem(){
-                let idd = this.lists.length+1
-                const newList = {id:idd, item:this.newItem, completed:false}
-                this.lists.push(newList)
-
-                this.newItem = ''
-
-                this.saveLists()
-              },
-              deleteItem(id){
-                this.lists.splice(id, 1);
-
-                this.saveLists()
-              },
-              saveLists(){
-                const parsed = JSON.stringify(this.lists)
-                localStorage.setItem('lists', parsed)
-              },
-              mark(list){
-                //for (var i = 0; i < this.lists.length; i++) {
-                  //if (this.lists[i].id === list) {
-                    if (list.completed)
-                      list.completed = false
-                    else
-                      list.completed = true
-                  //}
-                //}
-                //list.completed = !list.completed;
-                this.saveLists()
-              }
-            },
-            mounted() {
-              /*if (localStorage.getItem('lists')) {
-                this.lists = JSON.parse(localStorage.getItem('lists'));
-              }*/
-              if (localStorage.getItem('lists')) {
-                try {
-                  this.lists = JSON.parse(localStorage.getItem('lists'));
-                } catch(e) {
-                  localStorage.removeItem('lists');
-                }
-              }
-            },
-            watch: {
-              newItem(item) {
-                this.lists.saveLists();
-              }
-            }
-          })
-        
-        </script>
-        <!--<script src="js/vue.min.js"></script>
-        <script src="js/main.js"></script>-->
+        <!--<script type='text/JavaScript'></script>-->
+        <script src="js/vue.min.js"></script>
+        <script src="js/main.js"></script>
     </body>
 </html>
